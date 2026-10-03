@@ -1,0 +1,8 @@
+# Fichiers sources nationaux (trop volumineux) : à télécharger sur data.gouv.fr et insee.fr, voir README
+data_source/
+__pycache__/
+*.pyc
+.ipynb_checkpoints/
+.DS_Store
+Thumbs.db
+node_modules/

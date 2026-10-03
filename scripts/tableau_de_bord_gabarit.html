@@ -1,0 +1,212 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>Isère, commune par commune – tableau de bord électoral</title>
+<link rel="preconnect" href="https://fonts.googleapis.com"><link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible:wght@400;700&display=swap" rel="stylesheet">
+<style>
+:root{--fond:#F7F8FA;--surface:#FFFFFF;--encre:#1B2230;--doux:#4A5568;--trait:#C9CFD8;--focus:#1A56DB;
+--gauche:#D55E00;--centre:#E69F00;--droite:#0072B2;--extdroite:#5B3A1E;--vide:#D9DDE3;--motif:#FFFFFF;
+box-sizing:border-box;padding-top:env(safe-area-inset-top,0px);padding-bottom:env(safe-area-inset-bottom,0px);color-scheme:light}
+@media (prefers-color-scheme:dark){:root:not([data-theme="light"]){--fond:#12161D;--surface:#1B212B;--encre:#E9EDF3;--doux:#AEB7C4;--trait:#3A4452;--focus:#7AA7FF;--extdroite:#9C6B43;--vide:#39414D;--motif:#12161D;color-scheme:dark}}
+:root[data-theme="dark"]{--fond:#12161D;--surface:#1B212B;--encre:#E9EDF3;--doux:#AEB7C4;--trait:#3A4452;--focus:#7AA7FF;--extdroite:#9C6B43;--vide:#39414D;--motif:#12161D;color-scheme:dark}
+*,*::before,*::after{box-sizing:inherit}
+html{scroll-padding-top:env(safe-area-inset-top,0px)}
+body{margin:0;background:var(--fond);color:var(--encre);font-family:"Atkinson Hyperlegible",system-ui,-apple-system,"Segoe UI",sans-serif;font-size:1.0625rem;line-height:1.55}
+.evitement{position:absolute;left:-999px;top:0;background:var(--surface);color:var(--encre);padding:.6rem 1rem;z-index:10}
+.evitement:focus{left:1rem}
+:focus-visible{outline:3px solid var(--focus);outline-offset:2px}
+header,main,footer{max-width:1180px;margin:0 auto;padding:1.25rem clamp(1rem,3vw,2rem)}
+h1{font-size:clamp(1.9rem,4vw,2.7rem);line-height:1.1;margin:.4rem 0 .5rem;letter-spacing:-.01em}
+h2{font-size:1.3rem;margin:0 0 .6rem}
+.chapo{max-width:62ch;color:var(--doux);margin:0}
+fieldset{border:0;padding:0;margin:0}
+legend{font-weight:700;margin-bottom:.4rem}
+.frise{display:flex;flex-wrap:wrap;gap:.35rem;align-items:stretch}
+.frise label{display:block;cursor:pointer}
+.frise input{position:absolute;opacity:0;width:1px;height:1px}
+.frise label span{display:block;padding:.45rem .7rem;border:2px solid var(--trait);border-radius:6px;background:var(--surface);min-width:5.5rem;text-align:center;font-size:.95rem}
+.frise .proj span{border-style:dashed}
+.frise label input:checked+span{border-color:var(--encre);background:var(--encre);color:var(--fond);font-weight:700}
+.frise input:focus-visible+span{outline:3px solid var(--focus);outline-offset:2px}
+.sep{align-self:center;color:var(--doux);font-size:.9rem;padding:0 .3rem;font-style:italic}
+.outils{display:flex;flex-wrap:wrap;gap:1rem 2rem;align-items:end;margin-top:1rem}
+.recherche label{display:block;font-weight:700;margin-bottom:.3rem}
+.recherche input{font:inherit;padding:.5rem .7rem;border:2px solid var(--trait);border-radius:6px;background:var(--surface);color:var(--encre);width:min(22rem,80vw)}
+.bascule{display:flex;gap:.5rem;align-items:center}
+.bascule input{width:1.2rem;height:1.2rem;accent-color:var(--encre)}
+.grille{display:grid;grid-template-columns:minmax(0,1.5fr) minmax(0,1fr);gap:1.5rem;margin-top:1.4rem}
+@media (max-width:820px){.grille{grid-template-columns:1fr}}
+.carte{background:var(--surface);border:1px solid var(--trait);border-radius:8px;padding:.6rem}
+#carte{width:100%;height:auto;display:block}
+.carte path{stroke:var(--surface);stroke-width:.35;cursor:pointer}
+.carte path.choisie{stroke:var(--encre);stroke-width:2.2}
+.legende{display:flex;flex-wrap:wrap;gap:.4rem 1.2rem;margin:.6rem .2rem 0;padding:0;list-style:none;font-size:.95rem}
+.legende svg{width:1.1rem;height:1.1rem;vertical-align:-.2rem;margin-right:.35rem;border-radius:2px}
+.fiche{background:var(--surface);border:1px solid var(--trait);border-radius:8px;padding:1rem 1.2rem}
+.fiche h2{font-size:1.55rem;margin-bottom:.2rem}
+.fiche .meta{color:var(--doux);margin:0 0 .9rem;font-size:.95rem}
+.barre{display:grid;grid-template-columns:8.5rem 1fr 4.4rem;gap:.5rem;align-items:center;margin:.35rem 0}
+.barre .piste{height:.9rem;background:var(--vide);border-radius:3px;overflow:hidden}
+.barre .rempli{height:100%}
+.barre .val{text-align:right;white-space:nowrap;font-variant-numeric:tabular-nums}
+.tete{font-weight:700}
+.synthese{margin-top:1.2rem}
+.synthese p{margin:.2rem 0}
+.empile{display:flex;height:1.4rem;border-radius:4px;overflow:hidden;margin:.4rem 0 .5rem;border:1px solid var(--trait)}
+.note{font-size:.93rem;color:var(--doux)}
+section.donnees{margin-top:2rem}
+.defile{overflow-x:auto;max-height:28rem;overflow-y:auto;border:1px solid var(--trait);border-radius:8px;background:var(--surface)}
+table{border-collapse:collapse;width:100%;font-variant-numeric:tabular-nums;font-size:.95rem}
+caption{text-align:left;padding:.6rem .8rem;color:var(--doux)}
+th,td{padding:.4rem .7rem;border-bottom:1px solid var(--trait);text-align:right;white-space:nowrap}
+th:first-child,td:first-child,th:nth-child(3),td:nth-child(3){text-align:left}
+thead th{position:sticky;top:0;background:var(--surface);z-index:1}
+th button{font:inherit;font-weight:700;background:none;border:0;color:var(--encre);cursor:pointer;padding:0}
+td button{font:inherit;background:none;border:0;color:var(--encre);text-decoration:underline;text-underline-offset:3px;cursor:pointer;padding:0;text-align:left}
+footer{color:var(--doux);font-size:.93rem}
+footer h2{font-size:1.05rem;color:var(--encre)}
+@media (prefers-reduced-motion:no-preference){.barre .rempli{transition:width .25s ease}}
+</style>
+</head>
+<body>
+<a class="evitement" href="#donnees">Aller directement au tableau des données</a>
+<header>
+  <h1>Isère, commune par commune</h1>
+  <p class="chapo">Le bloc politique arrivé en tête au premier tour dans les 512 communes, de 2017 à 2024, puis les projections du modèle pour 2027, 2028 et 2029.</p>
+  <div class="outils">
+    <fieldset>
+      <legend>Scrutin affiché</legend>
+      <div class="frise" id="frise"></div>
+    </fieldset>
+  </div>
+  <div class="outils">
+    <div class="recherche">
+      <label for="cherche">Trouver une commune</label>
+      <input id="cherche" list="liste-communes" autocomplete="off" placeholder="Par exemple : Voiron">
+      <datalist id="liste-communes"></datalist>
+    </div>
+    <div class="bascule"><input type="checkbox" id="motifs"><label for="motifs">Ajouter des motifs aux couleurs</label></div>
+  </div>
+</header>
+<main>
+  <div class="grille">
+    <figure class="carte" style="margin:0">
+      <svg id="carte" role="img" aria-labelledby="carte-titre" focusable="false"></svg>
+      <figcaption>
+        <p id="carte-titre" class="note"></p>
+        <ul class="legende" id="legende"></ul>
+      </figcaption>
+    </figure>
+    <div>
+      <section class="fiche" aria-labelledby="fiche-nom" id="fiche"></section>
+      <section class="synthese" aria-labelledby="synth-titre">
+        <h2 id="synth-titre">Nombre de communes par bloc en tête</h2>
+        <div class="empile" id="empile" aria-hidden="true"></div>
+        <div id="synth-texte"></div>
+      </section>
+    </div>
+  </div>
+  <p id="annonce" class="evitement" aria-live="polite"></p>
+  <section class="donnees" id="donnees" aria-labelledby="donnees-titre" tabindex="-1">
+    <h2 id="donnees-titre">Toutes les communes</h2>
+    <p class="note">Ce tableau contient les mêmes informations que la carte. Cliquez sur un nom pour afficher sa fiche, ou sur un titre de colonne pour trier.</p>
+    <div class="defile"><table id="tableau"><caption id="tableau-legende"></caption><thead></thead><tbody></tbody></table></div>
+  </section>
+</main>
+<footer>
+  <h2>Sources et méthode</h2>
+  <p>Résultats électoraux : ministère de l'Intérieur (data.gouv.fr). Délinquance : SSMSI. Revenus et emploi : INSEE. Les projections sont produites par un modèle d'apprentissage supervisé (Gradient Boosting) qui trouve le bon bloc dans 82,8 % des communes lorsqu'on le teste sur les législatives 2024. Ce sont des tendances, pas des sondages.</p>
+  <h2>Accessibilité</h2>
+  <p>Police Atkinson Hyperlegible, conçue pour les personnes malvoyantes. Couleurs choisies pour rester distinctes en cas de daltonisme, motifs optionnels, contrastes conformes au niveau AA, navigation complète au clavier, tableau équivalent à la carte pour les lecteurs d'écran, mode sombre automatique.</p>
+</footer>
+<script>
+const D = /*__DONNEES__*/;
+const BLOCS = [["GAUCHE","Gauche","--gauche"],["CENTRE","Centre","--centre"],["DROITE","Droite","--droite"],["EXTREME_DROITE","Extrême droite","--extdroite"]];
+const VUES = [["PRES_2017","Prés. 2017"],["LEGI_2017","Légis. 2017"],["EURO_2019","Euro. 2019"],["PRES_2022","Prés. 2022"],["LEGI_2022","Légis. 2022"],["LEGI_2024","Légis. 2024"],["PROJ_2027","Prés. 2027"],["PROJ_2028","Légis. 2028"],["PROJ_2029","Euro. 2029"]];
+const LONG = {PRES_2017:"la présidentielle 2017",LEGI_2017:"les législatives 2017",EURO_2019:"les européennes 2019",PRES_2022:"la présidentielle 2022",LEGI_2022:"les législatives 2022",LEGI_2024:"les législatives 2024",PROJ_2027:"la présidentielle 2027 (projection)",PROJ_2028:"des législatives 2028 (scénario de dissolution, projection)",PROJ_2029:"les européennes 2029 (projection)"};
+const fmt = n => n.toLocaleString("fr-FR");
+const pct = n => n == null ? "–" : n.toLocaleString("fr-FR",{minimumFractionDigits:1,maximumFractionDigits:1}) + " %";
+let vue = "LEGI_2024", choix = "38185", tri = {col:"p", sens:-1};
+const css = v => getComputedStyle(document.documentElement).getPropertyValue(v).trim();
+const tete = parts => parts[5];
+
+// Frise des scrutins
+const frise = document.getElementById("frise");
+VUES.forEach(([id,lab],k) => {
+  if (k === 6) frise.insertAdjacentHTML("beforeend",'<em class="sep" aria-hidden="true">projections :</em>');
+  frise.insertAdjacentHTML("beforeend",`<label class="${id.startsWith("PROJ")?"proj":""}"><input type="radio" name="vue" value="${id}" ${id===vue?"checked":""}><span>${lab}${id==="PROJ_2028"?"*":""}</span></label>`);
+});
+frise.addEventListener("change", e => { vue = e.target.value; tout(); annonce(`Affichage : ${LONG[vue]}.`); });
+
+// Carte : motifs (hachures) pour ne pas dépendre de la couleur seule
+const svg = document.getElementById("carte");
+svg.setAttribute("viewBox", `0 0 ${D.w} ${D.h}`);
+const NS = "http://www.w3.org/2000/svg";
+const motif = (id, dessin) => `<pattern id="m-${id}" patternUnits="userSpaceOnUse" width="6" height="6"><rect width="6" height="6" fill="var(${BLOCS.find(b=>b[0]===id)[2]})"/>${dessin}</pattern>`;
+svg.innerHTML = `<defs>${motif("GAUCHE",'<path d="M0,6 L6,0" stroke="var(--motif)" stroke-width="1.2"/>')}${motif("CENTRE",'<circle cx="3" cy="3" r="1.1" fill="var(--motif)"/>')}${motif("DROITE",'<path d="M0,3 H6" stroke="var(--motif)" stroke-width="1.2"/>')}${motif("EXTREME_DROITE",'<path d="M0,0 L6,6 M6,0 L0,6" stroke="var(--motif)" stroke-width=".9"/>')}</defs>`;
+const chemins = {};
+D.chemins.forEach(([code,d]) => { const p = document.createElementNS(NS,"path"); p.setAttribute("d",d); p.dataset.c = code; svg.appendChild(p); (chemins[code] ||= []).push(p); });
+svg.addEventListener("click", e => { const c = e.target.dataset && e.target.dataset.c; if (c) choisir(c); });
+document.getElementById("motifs").addEventListener("change", () => { colorier(); legende(); });
+
+function remplissage(i){ const b = BLOCS[i]; return document.getElementById("motifs").checked ? `url(#m-${b[0]})` : `var(${b[2]})`; }
+const couleur = i => `var(${BLOCS[i][2]})`;  // barres HTML : couleur pleine + valeur écrite
+function colorier(){
+  const v = D.vues[vue];
+  for (const c in chemins){ const r = v[c]; chemins[c].forEach(p => { p.style.fill = r ? remplissage(tete(r)) : "var(--vide)"; p.classList.toggle("choisie", c === choix); }); }
+}
+function legende(){
+  document.getElementById("legende").innerHTML = BLOCS.map((b,i)=>`<li><svg viewBox="0 0 12 12" aria-hidden="true"><rect width="12" height="12" style="fill:${remplissage(i)}"/></svg>${b[1]}</li>`).join("") + '<li><svg viewBox="0 0 12 12" aria-hidden="true"><rect width="12" height="12" style="fill:var(--vide)"/></svg>Donnée absente</li>';
+}
+function comptes(){ const n=[0,0,0,0]; Object.values(D.vues[vue]).forEach(r => n[tete(r)]++); return n; }
+function synthese(){
+  const n = comptes(), tot = n.reduce((a,b)=>a+b,0);
+  document.getElementById("empile").innerHTML = n.map((k,i)=> k ? `<div style="width:${100*k/tot}%;background:${couleur(i)}"></div>` : "").join("");
+  const ordre = n.map((k,i)=>[k,i]).sort((a,b)=>b[0]-a[0]);
+  document.getElementById("synth-texte").innerHTML = ordre.map(([k,i])=>`<p><strong>${BLOCS[i][1]}</strong> : ${fmt(k)} commune${k>1?"s":""}</p>`).join("") +
+    (vue.startsWith("PROJ") ? `<p class="note">Projection du modèle, erreur moyenne constatée en 2024 : 5 à 13 points selon le bloc.${vue==="PROJ_2028"?" * Aucune élection nationale n'est prévue en 2028 : il s'agit d'un scénario de législatives anticipées.":""}</p>` : "");
+  const phr = ordre.filter(x=>x[0]).map(([k,i])=>`${BLOCS[i][1].toLowerCase()} en tête dans ${fmt(k)} communes`).join(", ");
+  document.getElementById("carte-titre").textContent = `Carte de l'Isère pour ${LONG[vue]} : ${phr}.`;
+  svg.setAttribute("aria-label", document.getElementById("carte-titre").textContent);
+}
+function fiche(){
+  const c = D.communes[choix], r = D.vues[vue][choix], el = document.getElementById("fiche");
+  if (!r){ el.innerHTML = `<h2 id="fiche-nom">${c.n}</h2><p>Pas de résultat exploitable pour ce scrutin (tous les votes ont été annulés).</p>`; return; }
+  const t = tete(r);
+  el.innerHTML = `<h2 id="fiche-nom">${c.n}</h2><p class="meta">${fmt(c.p)} habitants · niveau de vie médian ${fmt(c.nv)} € · chômage ${pct(c.ch)} · ${c.t}</p>
+   <p><span class="tete">${BLOCS[t][1]}</span> arrive en tête ${vue.startsWith("PROJ")?"selon la projection":""} pour ${LONG[vue]}.</p>` +
+   BLOCS.map((b,i)=>`<div class="barre"><span${i===t?' class="tete"':""}>${b[1]}</span><div class="piste" aria-hidden="true"><div class="rempli" style="width:${r[i]}%;background:${couleur(i)}"></div></div><span class="val">${pct(r[i])}</span></div>`).join("") +
+   (r[4]!=null ? `<p class="note">Participation : ${pct(r[4])} des inscrits.</p>` : `<p class="note">Parts de voix projetées parmi les quatre blocs.</p>`);
+}
+// Tableau équivalent à la carte
+const COLS = [["n","Commune"],["p","Population"],["t","Bloc en tête"],["b0","Gauche"],["b1","Centre"],["b2","Droite"],["b3","Extrême droite"]];
+function tableau(){
+  const q = document.getElementById("cherche").value.trim().toLowerCase(), v = D.vues[vue];
+  let lignes = Object.entries(D.communes).filter(([c,x]) => v[c] && x.n.toLowerCase().includes(q)).map(([c,x]) => ({c, n:x.n, p:x.p, t:BLOCS[tete(v[c])][1], b0:v[c][0], b1:v[c][1], b2:v[c][2], b3:v[c][3]}));
+  lignes.sort((a,b) => { const A=a[tri.col], B=b[tri.col]; return (typeof A==="string" ? A.localeCompare(B,"fr") : A-B) * tri.sens; });
+  const t = document.getElementById("tableau");
+  t.querySelector("thead").innerHTML = "<tr>" + COLS.map(([k,l]) => `<th scope="col" aria-sort="${tri.col===k?(tri.sens>0?"ascending":"descending"):"none"}"><button data-k="${k}">${l}${tri.col===k?(tri.sens>0?" ▲":" ▼"):""}</button></th>`).join("") + "</tr>";
+  t.querySelector("tbody").innerHTML = lignes.map(l => `<tr><th scope="row" style="font-weight:400;text-align:left"><button data-c="${l.c}">${l.n}</button></th><td>${fmt(l.p)}</td><td>${l.t}</td><td>${pct(l.b0)}</td><td>${pct(l.b1)}</td><td>${pct(l.b2)}</td><td>${pct(l.b3)}</td></tr>`).join("");
+  document.getElementById("tableau-legende").textContent = `${fmt(lignes.length)} communes, ${LONG[vue]}. Parts de voix en % des suffrages exprimés.`;
+}
+document.getElementById("tableau").addEventListener("click", e => {
+  const b = e.target.closest("button"); if (!b) return;
+  if (b.dataset.k){ tri = {col:b.dataset.k, sens: tri.col===b.dataset.k ? -tri.sens : (b.dataset.k==="n"||b.dataset.k==="t"?1:-1)}; tableau(); document.querySelector(`th button[data-k="${tri.col}"]`).focus(); }
+  if (b.dataset.c){ choisir(b.dataset.c); document.getElementById("fiche").scrollIntoView({block:"nearest"}); }
+});
+const dl = document.getElementById("liste-communes");
+dl.innerHTML = Object.values(D.communes).map(x=>x.n).sort((a,b)=>a.localeCompare(b,"fr")).map(n=>`<option value="${n}">`).join("");
+document.getElementById("cherche").addEventListener("input", e => {
+  tableau(); const q = e.target.value.trim().toLowerCase();
+  const exact = Object.entries(D.communes).find(([c,x]) => x.n.toLowerCase() === q); if (exact) choisir(exact[0]);
+});
+function annonce(t){ document.getElementById("annonce").textContent = t; }
+function choisir(c){ choix = c; colorier(); fiche(); const r = D.vues[vue][c]; annonce(r ? `${D.communes[c].n} : ${BLOCS[tete(r)][1]} en tête.` : `${D.communes[c].n} : pas de résultat.`); }
+function tout(){ colorier(); legende(); synthese(); fiche(); tableau(); }
+tout();
+</script>
+</body>
+</html>

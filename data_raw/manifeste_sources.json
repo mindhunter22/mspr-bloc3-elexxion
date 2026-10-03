@@ -1,0 +1,57 @@
+{
+ "2017-legislatives-1_par_commune_long.csv.gz": {
+  "sha256": "6743e66e89b7f1ec483eb04c680eeb40e843cc560560c74b47adea209c32d026",
+  "octets": 2920955,
+  "controle_le": "2026-09-30T18:09:22"
+ },
+ "2017-presidentielle-1_par_commune_long.csv.gz": {
+  "sha256": "8dc849c8b50fd70c85c1e35af339d7971e678ee972ba6e848a3be06eea52703b",
+  "octets": 2405972,
+  "controle_le": "2026-09-30T18:09:22"
+ },
+ "2019-europeennes_par_commune_long.csv.gz": {
+  "sha256": "5f884384bb5f71afcfd93b30ab7b52d0ed4509aa34574fca5d21356837af6177",
+  "octets": 5677810,
+  "controle_le": "2026-09-30T18:09:23"
+ },
+ "DS_FILOSOFI_CC_data.csv": {
+  "sha256": "3ea3f522f3f9aa7da86af8251ebba9094f1c0af7612aaeebc4dc66d58b8caa21",
+  "octets": 44331146,
+  "controle_le": "2026-09-30T18:09:23"
+ },
+ "base-cc-emploi-pop-active-2021.CSV": {
+  "sha256": "8a1bc8bcebdfa5fa152e661f6223be3ffcfcac13f4aef71a07e443357871966c",
+  "octets": 158091168,
+  "controle_le": "2026-09-30T18:09:23"
+ },
+ "legi2022_t1_subcom.xlsx": {
+  "sha256": "5e4640bab7250adfc2001c71400a1dd200762b2c708bf4608ab1569bf3472e98",
+  "octets": 19582937,
+  "controle_le": "2026-09-30T18:09:25"
+ },
+ "legi2024_communes.xlsx": {
+  "sha256": "0bb8661b9a894020b77d34ea04ed558d22d6903426c6a7a441215bf38834bdac",
+  "octets": 11959390,
+  "controle_le": "2026-09-30T18:09:26"
+ },
+ "lexique nuance 2022.txt": {
+  "sha256": "e47a3051b9de171fe0da3a8c73d6519cc4870564661c82692773a3bde09323b0",
+  "octets": 424,
+  "controle_le": "2026-09-30T18:09:26"
+ },
+ "lexique nuance 2024.txt": {
+  "sha256": "f43e25ff0faf8bda46c719c7c0439d8d0d130ec8605fb2d33edf0d7d0a226a95",
+  "octets": 541,
+  "controle_le": "2026-09-30T18:09:26"
+ },
+ "pres2022_t1_burvot.xlsx": {
+  "sha256": "cf323f2c5656725bc9bd0a994f6f01e06a30c5bf1f052b6308c73df147f1e52b",
+  "octets": 33486161,
+  "controle_le": "2026-09-30T18:09:29"
+ },
+ "ssmsi_all.csv.gz": {
+  "sha256": "d96190b688fd185faac8234fd84c589cebfbd064277d98789c62b57549d4f87f",
+  "octets": 39933032,
+  "controle_le": "2026-09-30T18:09:32"
+ }
+}

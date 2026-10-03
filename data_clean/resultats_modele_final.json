@@ -1,0 +1,73 @@
+{
+ "correlation_taux_pauvrete_85_communes": {
+  "part_GAUCHE": 0.28,
+  "part_CENTRE": -0.51,
+  "part_DROITE": -0.17,
+  "part_EXTREME_DROITE": 0.12
+ },
+ "classif_accuracy_2024": 0.828125,
+ "classif_f1_macro_2024": 0.5910710615244399,
+ "regression_MAE_points": {
+  "GAUCHE": 6.66,
+  "CENTRE": 8.47,
+  "DROITE": 5.07,
+  "EXTREME_DROITE": 13.24
+ },
+ "regression_accuracy_bloc_2024": 0.6328125,
+ "parts_dep_2024_reel": {
+  "GAUCHE": 33.5,
+  "CENTRE": 21.4,
+  "DROITE": 10.0,
+  "EXTREME_DROITE": 35.0
+ },
+ "parts_dep_2024_predit": {
+  "GAUCHE": 37.7,
+  "CENTRE": 26.6,
+  "DROITE": 11.7,
+  "EXTREME_DROITE": 24.0
+ },
+ "scrutins_apprentissage_projections": [
+  "EURO_2019",
+  "LEGI_2017",
+  "LEGI_2022",
+  "LEGI_2024",
+  "PRES_2022"
+ ],
+ "lignes_apprentissage_projections": 2559,
+ "pred_2027_nb_communes": {
+  "EXTREME_DROITE": 342,
+  "GAUCHE": 138,
+  "CENTRE": 28,
+  "DROITE": 4
+ },
+ "pred_2027_parts_dep": {
+  "GAUCHE": 31.6,
+  "CENTRE": 26.4,
+  "DROITE": 9.0,
+  "EXTREME_DROITE": 33.0
+ },
+ "pred_2028_nb_communes": {
+  "EXTREME_DROITE": 262,
+  "GAUCHE": 189,
+  "CENTRE": 49,
+  "DROITE": 12
+ },
+ "pred_2028_parts_dep": {
+  "GAUCHE": 34.1,
+  "CENTRE": 25.7,
+  "DROITE": 13.8,
+  "EXTREME_DROITE": 26.4
+ },
+ "pred_2029_nb_communes": {
+  "EXTREME_DROITE": 311,
+  "GAUCHE": 192,
+  "CENTRE": 9
+ },
+ "pred_2029_parts_dep": {
+  "GAUCHE": 35.1,
+  "CENTRE": 22.3,
+  "DROITE": 10.9,
+  "EXTREME_DROITE": 31.7
+ },
+ "accord_classif_regression_2027": 0.857421875
+}

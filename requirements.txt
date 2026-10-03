@@ -1,0 +1,6 @@
+pandas>=2.2
+numpy>=1.26
+scikit-learn>=1.5
+matplotlib>=3.8
+openpyxl>=3.1
+playwright>=1.45   # uniquement pour générer le rapport PDF et tester le tableau de bord

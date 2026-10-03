@@ -1,0 +1,7 @@
+variables,modèle,accuracy CV 5 plis,accuracy test 2024,F1 macro test 2024
+Contexte seul,Régression logistique,0.651,0.277,0.206
+Contexte seul,Random Forest,0.73,0.646,0.444
+Contexte seul,Gradient Boosting,0.738,0.623,0.486
+Contexte + scrutin précédent,Régression logistique,0.818,0.629,0.46
+Contexte + scrutin précédent,Random Forest,0.822,0.707,0.486
+Contexte + scrutin précédent,Gradient Boosting,0.828,0.799,0.549
