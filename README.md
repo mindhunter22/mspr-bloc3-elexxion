@@ -55,7 +55,7 @@
 | `10_typologie.py` | Typologie des communes (k-means, score de silhouette) |
 | `11_requetes_nosql.py` | Requêtes SQL automatisées et export NoSQL |
 | `12_tableau_de_bord.py` | Génération du tableau de bord accessible |
-| `15_rapport_final_pro.py` | Génération du rapport PDF |
+
 
 ## Reproduire les résultats
 
